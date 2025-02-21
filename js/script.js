@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     const colorFlavortext = document.getElementById('colorFlavortext');
     const imageContainer = document.getElementById('imageContainer');
     const colorResults = document.getElementById('colorResults');
-   
+    const executionTimeDisplay = document.getElementById('executionTime'); // Element to display execution time
+
     const uploadURL = window.location.origin + "/upload.php";
     const processURL = window.location.origin + "/process.php";
 
@@ -14,8 +15,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     
         loadingIndicator.style.display = 'block';
         colorResults.innerHTML = "";
-      
         imageContainer.innerHTML = "";
+        executionTimeDisplay.innerHTML = ""; // Clear execution time display on new upload
     
         const formData = new FormData();
         formData.append('file', fileInput.files[0]);
@@ -54,6 +55,9 @@ document.addEventListener('DOMContentLoaded', async function () {
                         </div>
                     `).join('');
                     if (colorFlavortext) colorFlavortext.style.display = "block"; // Avoid null error
+
+                    // Display the execution time
+                    executionTimeDisplay.innerHTML = `Processing time: ${colorData.execution_time_seconds} seconds`;
                 }
             } catch (jsonError) {
                 console.error("[JSON PARSE ERROR]", responseText);
