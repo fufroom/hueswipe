@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     const diskUsage = document.getElementById('disk-usage');
 
     const UPLOAD_OFFSET = 56; // Hardcoded past uploads
+    const USERS_OFFSET = 11; // Hardcoded past uploads
 
     async function fetchStats() {
         try {
@@ -16,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
             // Fail gracefully if any value is missing
             if (swipers) {
-                swipers.textContent = statsData.site_stats.unique_users ?? "0";
+                swipers.textContent = (statsData.site_stats.unique_users ?? 0) + USERS_OFFSET;
             }
             if (imagesSwiped) {
                 imagesSwiped.textContent = (statsData.site_stats.total_uploads ?? 0) + UPLOAD_OFFSET;

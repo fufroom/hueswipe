@@ -1,10 +1,13 @@
-document.addEventListener('DOMContentLoaded', async function () {
-    const fileInput = document.getElementById('fileInput');
-    const swipeButton = document.getElementById('swipeButton');
-    const loadingIndicator = document.getElementById('loadingIndicator');
-    const imageContainer = document.getElementById('imageContainer');
-    const colorResults = document.getElementById('colorResults');
-    const executionTimeDisplay = document.getElementById('executionTime');
+import { createColorBox } from "./colorBox.js";
+
+document.addEventListener("DOMContentLoaded", async function () {
+    const fileInput = document.getElementById("fileInput");
+    const swipeButton = document.getElementById("swipeButton");
+    const loadingIndicator = document.getElementById("loadingIndicator");
+    const imageContainer = document.getElementById("imageContainer");
+    const colorResults = document.getElementById("colorResults");
+    const executionTimeDisplay = document.getElementById("executionTime");
+    const clickToSampleAlert = document.getElementById("clickToSampleAlert");
 
     const uploadURL = window.location.origin + "/upload.php";
     const processURL = window.location.origin + "/process.php";
@@ -12,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     function hexToRgb(hex) {
         if (typeof hex !== "string" || !hex.startsWith("#") || hex.length !== 7) {
             console.error("[HEX ERROR] Invalid hex value:", hex);
-            return { r: 0, g: 0, b: 0 }; // Default black to prevent errors
+            return { r: 0, g: 0, b: 0 };
         }
         const bigint = parseInt(hex.slice(1), 16);
         return {
@@ -52,17 +55,18 @@ document.addEventListener('DOMContentLoaded', async function () {
             return;
         }
 
-        loadingIndicator.style.display = 'block';
+        loadingIndicator.style.display = "block";
         colorResults.innerHTML = "";
         imageContainer.innerHTML = "";
         executionTimeDisplay.innerHTML = "";
+        clickToSampleAlert.classList.add("d-none"); // Hide the message initially
 
         const formData = new FormData();
-        formData.append('file', fileInput.files[0]);
+        formData.append("file", fileInput.files[0]);
 
         try {
             console.log("[UPLOAD] Sending file to server...");
-            const response = await fetch(uploadURL, { method: 'POST', body: formData });
+            const response = await fetch(uploadURL, { method: "POST", body: formData });
 
             if (!response.ok) throw new Error(`Upload failed: ${response.status}`);
 
@@ -71,6 +75,9 @@ document.addEventListener('DOMContentLoaded', async function () {
 
             console.log("[UPLOAD SUCCESS] File uploaded:", result.file);
             imageContainer.innerHTML = `<img src="${result.file}" alt="Uploaded Image">`;
+
+            // Show the click-to-sample message
+            clickToSampleAlert.classList.remove("d-none");
 
             console.log("[PROCESS] Sending file for color analysis...");
             const colorResponse = await fetch(`${processURL}?image=${encodeURIComponent(result.file)}`);
@@ -82,28 +89,18 @@ document.addEventListener('DOMContentLoaded', async function () {
 
             console.log("[PROCESS SUCCESS] Color data received:", colorData);
 
-            colorResults.innerHTML = colorData.colors.map(color => {
-                if (!color.hex || typeof color.hex !== "string") {
-                    console.error("[DATA ERROR] Missing hex value in color:", color);
-                    return "";
-                }
+            colorResults.innerHTML = colorData.colors
+                .map(color => {
+                    if (!color.hex || typeof color.hex !== "string") {
+                        console.error("[DATA ERROR] Missing hex value in color:", color);
+                        return "";
+                    }
 
-                const rgb = hexToRgb(color.hex);
-                const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
-
-                return `
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <div class="color-box">
-                            <div class="color-swatch" style="background: ${color.hex}"></div>
-                            <div>
-                                <strong>Hex:</strong> ${color.hex}<br>
-                                <strong>RGB:</strong> rgb(${rgb.r}, ${rgb.g}, ${rgb.b})<br>
-                                <strong>HSL:</strong> hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+                    const rgb = hexToRgb(color.hex);
+                    const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+                    return createColorBox(color.hex, rgb, hsl);
+                })
+                .join("");
 
             if (colorData.execution_time_ms) {
                 executionTimeDisplay.innerHTML = `Processing time: ${(colorData.execution_time_ms / 1000).toFixed(2)} seconds`;
@@ -117,5 +114,5 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     }
 
-    swipeButton.addEventListener('click', handleUpload);
+    swipeButton.addEventListener("click", handleUpload);
 });

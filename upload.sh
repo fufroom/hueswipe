@@ -37,7 +37,7 @@ for ITEM in "${INCLUDE_LIST[@]}"; do
 done
 
 # Run rsync but prevent deletion of `uploads/` while syncing its contents
-rsync -avz --progress --delete \
+rsync -avz --progress  \
     "${INCLUDE_ARGS[@]}" \
     --exclude="*/" \
     --exclude="uploads/*" \
