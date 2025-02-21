@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hue Swipe - Upload an image and steal its best colors. Don't worry, it's totally legal.</title>
+
+    <!-- OpenGraph & Meta Tags for Sharing -->
+    <meta name="description"
+        content="Swipe the unique colors from any image to make great color palettes! Just upload, extract, and get inspired.">
+    <meta property="og:title" content="Hue Swipe - Upload an image and steal its best colors. Don't worry, it's totally legal.">
+    <meta property="og:description"
+        content="Upload an image and steal its best colors. Don't worry, it's totally legal.">
+    <meta property="og:image" content="https://hueswipe.click/images/share-image.jpg">
+    <meta property="og:url" content="https://hueswipe.click">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Hue Swipe - Upload an image and steal its best colors. Don't worry, it's totally legal.>
+    <meta name="twitter:description"
+        content="Upload an image and steal its best colors. Don't worry, it's totally legal.">
+    <meta name="twitter:image" content="https://hueswipe.click/images/share-image.jpg">
+    <meta name="theme-color" content="#00FFFF">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
+    <link rel="shortcut icon" href="/images/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
+    <link rel="manifest" href="/images/site.webmanifest" />
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XG2K0E78T8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XG2K0E78T8');
+</script>
+
+
+<body class="container text-center mt-4">
+
+    <header class="header-container">
+        <!-- Left Side: Logo, Subtitle, Ko-fi -->
+        <div class="header-left">
+            <div class="header-title-container">
+                <img src="images/logo.png" alt="HueSwipe Logo" class="logo">
+                <h1>Hue Swipe</h1>
+            </div>
+            <p class="subtitle">Steal colors like an absolute menace. Your art teachers can’t stop you.</p>
+    
+            <div class="kofi-container">
+                <a href="https://ko-fi.com/fufroom" target="_blank" class="kofi-header">
+                    <img src="images/fullLogoKofi.webp" alt="Support on Ko-fi" class="kofi-icon">
+                </a>
+                <p class="kofi-text">Help keep HueSwipe alive! Any small donation is appreciated.</p>
+            </div>
+        </div>
+    
+        <!-- Right Side: Stats & File Upload -->
+        <div class="header-right">
+            <div class="stats-container">
+                <div class="stat-box">
+                    <strong id="swipers">...</strong>
+                    <span>Swipers</span>
+                </div>
+                <div class="stat-box">
+                    <strong id="images-swiped">...</strong>
+                    <span>Images Swiped</span>
+                </div>
+            </div>
+    
+            <!-- Upload Box with Swipe Button -->
+            <div class="upload-container input-group">
+                <input type="file" id="fileInput" accept="image/*" class="form-control">
+                <button class="btn btn-primary" id="swipeButton">Swipe</button>
+            </div>
+    
+<!-- Loading Indicator -->
+<div id="loadingIndicator" class="alert alert-primary mt-3 row" style="display: none;">
+    <div class="col-sm-2">
+        <div class="spinner-border text-light" role="status"></div>
+    </div>
+    <div class="col-sm-10">
+        <div id="imageFlavortext">Loading...</div>
+        <div id="loadingJunk">Loading...</div>
+    </div>
+</div>
+
+
+        </div>
+    </header>
+    
+    
+
+    <!-- Main Layout (Image + Colors) -->
+    <div class="row margin-below">
+        <div class="col-md-4" id="imageContainer">
+        
+        </div>
+        <div class="col-md-8">
+            <h3 id="colorFlavortext" class="flavor-text" style="display: none;"></h3>
+            <div id="colorResults" class="d-flex flex-wrap justify-content-center"></div>
+
+        </div>
+    </div>
+
+    <!-- Sticky Footer -->
+    <footer class="footer-container">
+        <div class="footer-column">
+            <p>© 2025 <a href="https://fufroom.art" target="_blank">Fufroom</a></p>
+            <p><a href="https://github.com/fufroom/hueswipe" target="_blank">Open Source on GitHub</a></p>
+            <p>Code is <strong>MIT licensed</strong>, but "HueSwipe" is <strong>copyright 2025 Fufroom</strong></p>
+        </div>
+        <div class="footer-column">
+            <p>Support the project ❤️</p>
+            <a href="https://ko-fi.com/fufroom" target="_blank">
+                <img src="images/fullLogoKofi.webp" alt="Support me on Ko-Fi" class="kofi-logo">
+            </a>
+        </div>
+        <div class="footer-column">
+            <p>HueSwipe logo uses icons from <a href="https://thenounproject.com/" target="_blank">Noun Project</a>:</p>
+            <p>
+                <a href="https://thenounproject.com/browse/icons/term/paint/" target="_blank">Paint</a> by Paisley (CC
+                BY 3.0)
+                <br>
+                <a href="https://thenounproject.com/browse/icons/term/theft/" target="_blank">Theft</a> by Vectorstall
+                (CC BY 3.0)
+            </p>
+        </div>
+    </footer>
+
+
+
+    <!-- Scripts -->
+    <script src="js/script.js" defer></script>
+    <script src="js/flavortext.js" defer></script>
+    <script src="js/stats.js" defer></script>
+    <script src="js/loadingText.js" defer></script>
+</body>
+
+</html>
