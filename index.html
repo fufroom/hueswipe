@@ -9,7 +9,8 @@
     <!-- OpenGraph & Meta Tags for Sharing -->
     <meta name="description"
         content="Swipe the unique colors from any image to make great color palettes! Just upload, extract, and get inspired.">
-    <meta property="og:title" content="Hue Swipe - Upload an image and steal its best colors. Don't worry, it's totally legal.">
+    <meta property="og:title"
+        content="Hue Swipe - Upload an image and steal its best colors. Don't worry, it's totally legal.">
     <meta property="og:description"
         content="Upload an image and steal its best colors. Don't worry, it's totally legal.">
     <meta property="og:image" content="https://hueswipe.click/images/share-image.jpg">
@@ -17,7 +18,7 @@
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Hue Swipe - Upload an image and steal its best colors. Don't worry, it's totally legal.>
-    <meta name="twitter:description"
+    <meta name=" twitter:description"
         content="Upload an image and steal its best colors. Don't worry, it's totally legal.">
     <meta name="twitter:image" content="https://hueswipe.click/images/share-image.jpg">
     <meta name="theme-color" content="#00FFFF">
@@ -43,78 +44,81 @@
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XG2K0E78T8"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-  gtag('config', 'G-XG2K0E78T8');
+    gtag('config', 'G-XG2K0E78T8');
 </script>
 
 
 <body class="container text-center mt-4">
 
     <header class="header-container">
-        <!-- Left Side: Logo, Subtitle, Ko-fi -->
-        <div class="header-left">
-            <div class="header-title-container">
-                <img src="images/logo.png" alt="HueSwipe Logo" class="logo">
-                <h1>Hue Swipe</h1>
-            </div>
-            <p class="subtitle">...</p>
-    
-            <div class="kofi-container">
-                <a href="https://ko-fi.com/fufroom" target="_blank" class="kofi-header">
-                    <img src="images/fullLogoKofi.webp" alt="Support on Ko-fi" class="kofi-icon">
-                </a>
-                <p class="kofi-text">Help keep HueSwipe alive! Any small donation is appreciated.</p>
-            </div>
-        </div>
-    
-        <!-- Right Side: Stats & File Upload -->
-        <div class="header-right">
-            <div class="stats-container">
-                <div class="stat-box">
-                    <strong id="swipers">...</strong>
-                    <span>Swipers</span>
+        <div class="row">
+            <!-- Left Side: Logo, Subtitle, Ko-fi -->
+            <div class="header-left col-sm-12 col-md-6">
+                <div class="header-title-container">
+                    <img src="images/logo.png" alt="HueSwipe Logo" class="logo">
+                    <h1>Hue Swipe</h1>
                 </div>
-                <div class="stat-box">
-                    <strong id="images-swiped">...</strong>
-                    <span>Images Swiped</span>
+                <p class="subtitle">...</p>
+
+                <div class="kofi-container">
+                    <a href="https://ko-fi.com/fufroom" target="_blank" class="kofi-header">
+                        <img src="images/fullLogoKofi.webp" alt="Support on Ko-fi" class="kofi-icon">
+                    </a>
+                    <p class="kofi-text">Help keep HueSwipe alive! Any small donation is appreciated.</p>
                 </div>
             </div>
-    
-            <!-- Upload Box with Swipe Button -->
-            <div class="upload-container input-group">
-                <input type="file" id="fileInput" accept="image/*" class="form-control">
-                <button class="btn btn-primary" id="swipeButton">Swipe</button>
+
+            <!-- Right Side: Stats & File Upload -->
+            <div class="header-right col-sm-12 col-md-6">
+                <div class="stats-container">
+                    <div class="stat-box">
+                        <strong id="swipers">...</strong>
+                        <span>Swipers</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong id="images-swiped">...</strong>
+                        <span>Images Swiped</span>
+                    </div>
+                </div>
+
+                <!-- Upload Box with Swipe Button -->
+                <div class="upload-container input-group">
+                    <input type="file" id="fileInput" accept="image/*" class="form-control">
+                    <button class="btn btn-primary" id="swipeButton">Swipe</button>
+                </div>
+
+                <!-- Loading Indicator -->
+                <div id="loadingIndicator" class="alert alert-primary mt-3 row" style="display: none;">
+                    <div class="col-sm-2">
+                        <div class="spinner-border text-light" role="status"></div>
+                    </div>
+                    <div class="col-sm-10">
+                        <div id="imageFlavortext">Loading...</div>
+                        <div id="loadingJunk">Loading...</div>
+                    </div>
+                </div>
+
             </div>
-    
-<!-- Loading Indicator -->
-<div id="loadingIndicator" class="alert alert-primary mt-3 row" style="display: none;">
-    <div class="col-sm-2">
-        <div class="spinner-border text-light" role="status"></div>
-    </div>
-    <div class="col-sm-10">
-        <div id="imageFlavortext">Loading...</div>
-        <div id="loadingJunk">Loading...</div>
-    </div>
-</div>
-
-
         </div>
     </header>
-    
-    
+
+
 
     <!-- Main Layout (Image + Colors) -->
     <div class="row margin-below">
         <div class="col-md-4" id="imageContainer">
-        
+
         </div>
         <div class="col-md-8">
             <strong id="executionTime"></strong>
             <h3 id="colorFlavortext" class="flavor-text" style="display: none;"></h3>
-            <div id="colorResults" class="d-flex flex-wrap justify-content-center"></div>
+            <div id="colorResults" class="row">
+            </div>
+
 
         </div>
     </div>
