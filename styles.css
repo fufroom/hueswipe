@@ -130,6 +130,20 @@ footer a:hover {
     margin-bottom: 10px;
 }
 
+.header-title-container a{
+ color: white;
+ text-decoration: none;
+}
+.header-title-container img{
+    vertical-align: middle;
+}
+.header-title-container  h1{
+   display: inline-block;
+   top: 27px;
+  position: relative;
+  left: 24px;
+   }
+
 h1 {
     font-family: 'Oswald', sans-serif;
     font-size: 3rem;
@@ -203,11 +217,13 @@ h1 {
 }
 
 #loadingIndicator {
-    align-items: center;
-    display: flex;
-    gap: 10px;
-    justify-content: center;
+    max-width: 550px;
     padding: 10px;
+}
+
+#loadingIndicator .col-sm-s{
+    padding-top: 7px;
+  text-align: left;
 }
 
 #swipeButton {

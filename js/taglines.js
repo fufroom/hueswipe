@@ -7,15 +7,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const targets = [
         "Pantone", "Big Color", "the Vanta Black guy", "Adobe", "paint corporations",
-        "museum curators", "art supply cartels", "graphic design overlords", "the color police",
+        "Museum curators", "art supply cartels", "graphic design overlords", "the color police",
         "RGB monopolists", "the ghost of Bob Ross", "intellectual property lawyers", 
-        "copyright trolls", "the pigment mafia", 
+        "Copyright trolls", "the pigment mafia", 
         "Crayola’s shadow government", "some guy named Greg who hoards Copic markers",
-        "the AI art bots", "a color theory professor with a superiority complex",
-        "capitalism but specifically in the paint industry", "the ancient gods of CMYK",
-        "the JPEG compression demons", "that one dude who trademarked an entire shade of blue",
-        "the secret underground acrylic syndicate", "a suspiciously wealthy Etsy seller",
-        "whoever decided 'web safe colors' were a thing", "the entire hex code Illuminati"
+        "The AI art bots", "a color theory professor with a superiority complex",
+        "Capitalism but specifically in the paint industry", "the ancient gods of CMYK",
+        "The JPEG compression demons", "that one dude who trademarked an entire shade of blue",
+        "The secret underground acrylic syndicate", "a suspiciously wealthy Etsy seller",
+        "Whoever decided 'web safe colors' were a thing", "the entire hex code Illuminati"
     ];
 
     const menaces = [

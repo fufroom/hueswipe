@@ -28,6 +28,7 @@ INCLUDE_LIST=(
     "js/**"
     "assets/"
     "assets/**"
+    "fix_permissions.sh"  # Include the fix_permissions script
 )
 
 # Build rsync include parameters
@@ -36,11 +37,40 @@ for ITEM in "${INCLUDE_LIST[@]}"; do
     INCLUDE_ARGS+=("--include=${ITEM}")
 done
 
-# Run rsync but prevent deletion of `uploads/` while syncing its contents
-rsync -avz --progress  \
+# Run rsync, exclude the .env, README.md, .sh files, and the uploads folder contents
+rsync -avz --progress \
     "${INCLUDE_ARGS[@]}" \
-    --exclude="*/" \
+    --exclude=".env" \
+    --exclude="README.md" \
+    --exclude="*.sh" \
     --exclude="uploads/*" \
+    --exclude="*/" \
     "$LOCAL_PATH" "${SERVER_USER}@${SERVER_HOST}:${SERVER_PATH}"
+
+# SSH into the server and run the fix_permissions.sh script
+ssh ${SERVER_USER}@${SERVER_HOST} << EOF
+  echo "Running fix_permissions.sh..."
+
+  # Change to the directory where the files are uploaded
+  cd ${SERVER_PATH}
+
+  # Make sure fix_permissions.sh has execute permissions
+  sudo chmod +x fix_permissions.sh
+
+  # Run the fix_permissions.sh script
+  sudo ./fix_permissions.sh
+
+  echo "Permissions fixed on the server."
+EOF
+
+# Now proceed with file upload functionality, ensuring the file is uploaded and permissions are checked
+echo "✅ Starting file upload process..."
+
+# Files to upload
+UPLOAD_URL="http://${SERVER_HOST}/upload.php"  # Replace with correct upload URL
+
+# Use curl to upload a file for testing purposes (replace with real file for your use)
+# Adjust for the correct path and content type
+curl -X POST -F "file=@$LOCAL_PATH/testfile.png" "$UPLOAD_URL"
 
 echo "✅ Upload complete!"

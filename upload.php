@@ -105,22 +105,26 @@ if (!$tempPath) {
 }
 
 // Check for supported file types and size
-$maxFileSize = 10 * 1024 * 1024;
+$maxFileSize = 10 * 1024 * 1024; // 10MB
 $supportedExtensions = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'bmp', 'tiff', 'svg', 'heic'];
 
+// Ensure file type is supported
 if (!in_array($ext, $supportedExtensions)) {
+    $errorMessage = "Invalid file type. Supported types are: jpg, jpeg, png, webp, gif, bmp, tiff, svg, heic.";
     error_log("[ERROR] Unsupported file type: $ext");
     file_put_contents($logFile, "\"$userIP\",\"$origFilename\",\"FAILED\",\"$datetime\",\"$location\",\"$isp\",\"$browser\",\"$os\"\n", FILE_APPEND);
     ob_end_clean();
-    echo json_encode(["success" => false, "error" => "Invalid file type."]);
+    echo json_encode(["success" => false, "error" => $errorMessage]);
     exit;
 }
 
+// Check file size
 if ($_FILES['file']['size'] > $maxFileSize) {
+    $errorMessage = "File size exceeds 10MB.";
     error_log("[ERROR] File size exceeds limit: " . $_FILES['file']['size']);
     file_put_contents($logFile, "\"$userIP\",\"$origFilename\",\"FAILED\",\"$datetime\",\"$location\",\"$isp\",\"$browser\",\"$os\"\n", FILE_APPEND);
     ob_end_clean();
-    echo json_encode(["success" => false, "error" => "File size exceeds 10MB."]);
+    echo json_encode(["success" => false, "error" => $errorMessage]);
     exit;
 }
 
@@ -132,10 +136,11 @@ if (file_exists($targetPath)) {
 
 // Move file to target directory
 if (!move_uploaded_file($tempPath, $targetPath)) {
+    $errorMessage = "Failed to save the file to the server. Check permissions or directory availability.";
     error_log("[ERROR] Failed to save file: $targetPath");
     file_put_contents($logFile, "\"$userIP\",\"$origFilename\",\"FAILED\",\"$datetime\",\"$location\",\"$isp\",\"$browser\",\"$os\"\n", FILE_APPEND);
     ob_end_clean();
-    echo json_encode(["success" => false, "error" => "Failed to save file"]);
+    echo json_encode(["success" => false, "error" => $errorMessage]);
     exit;
 }
 
