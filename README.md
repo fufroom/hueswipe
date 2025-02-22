@@ -1,6 +1,6 @@
 # README for Hue Swipe
 
-Welcome to **[Hue Swipe](https://hueswipe.click)* – the simple, no-nonsense website where you can upload an image and swipe its best colors. It's totally legal, and I promise. Just an easy way to grab colors from any image you like and put them to good use.
+Welcome to *[Hue Swipe](https://hueswipe.click)* – the simple, no-nonsense website where you can upload an image and swipe its best colors. It's totally legal, I promise. Just an easy way to grab colors from any image you like and put them to good use. I know there are a lot of these websites out there but none of them worked the way I wanted, and I have more cool features in mind for later...
 
 Built with PHP because, well... **shit works**. I know, I know..
 
