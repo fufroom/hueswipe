@@ -6,7 +6,7 @@ Built with PHP because, well... **shit works**. I know, I know..
 
 ## Features
 - **Easy Upload**: Just upload an image, and It’ll handle the rest.
-- **Best Colors**: I’ve set up an algorithm to extract the most interesting colors from your image.
+- **Best Colors**: I’ve set up 🌈 an algorithm 🌈 to extract the most interesting colors from your image.
 - **Click and Sample**: You can also click on the image to manually sample any color. Take control of your palette.
 - **Open Source**: You can dive into the code, make it your own, or even break it if that’s your thing.
 
@@ -24,7 +24,7 @@ Built with PHP because, well... **shit works**. I know, I know..
 
 ## Credits
 
-- **Developer & Maintainer**: [fufroom](https://fufroom.art)
+- **Developer & Maintainer**: [fufroom](https://fufroom.art) (I'm a gamedev! go buy my games on Steam)
 - **Support the project**: [Ko-fi](https://ko-fi.com/fufroom)
 - **License**: MIT License – Feel free to use it, modify it, and share it. But keep in mind: "Hue Swipe" is copyrighted, that's my name. Everything else is up for grabs.
 - **Logo**: Uses icons from [Noun Project](https://thenounproject.com/), including:
