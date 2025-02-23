@@ -148,10 +148,19 @@ if (!move_uploaded_file($tempPath, $targetPath)) {
 $logEntry = "\"$userIP\",\"$origFilename\",\"$filename\",\"$datetime\",\"$location\",\"$isp\",\"$browser\",\"$os\"\n";
 file_put_contents($logFile, $logEntry, FILE_APPEND);
 
-// Update total uploads count
-$totalUploads = (int) file_get_contents($totalUploadsFile);
-$totalUploads += 1;
-file_put_contents($totalUploadsFile, $totalUploads);
+// Ensure file exists and is readable
+if (!file_exists($totalUploadsFile)) {
+    file_put_contents($totalUploadsFile, "3"); // Start at 3 if missing
+}
+
+// Read current count safely
+$totalUploads = file_get_contents($totalUploadsFile);
+$totalUploads = is_numeric(trim($totalUploads)) ? (int) trim($totalUploads) : 3;
+
+// Increment and overwrite with the new count
+$totalUploads++;
+file_put_contents($totalUploadsFile, (string) $totalUploads, LOCK_EX);
+
 
 ob_end_clean();
 echo json_encode(["success" => true, "file" => $targetPath]);

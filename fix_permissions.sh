@@ -10,6 +10,11 @@ sudo chmod -R 775 /var/www/hueswipe/uploads
 sudo chmod -R u+w /var/www/hueswipe/uploads
 
 # Set proper permissions for the log files
-sudo chmod 644 /var/www/hueswipe/upload_log.csv /var/www/hueswipe/upload_errors.log /var/www/hueswipe/unique_ips.log
+
+sudo chown www-data:www-data /var/www/hueswipe/upload_log.csv /var/www/hueswipe/upload_errors.log /var/www/hueswipe/unique_ips.log /var/www/hueswipe/total_uploads.log
+
+sudo chmod 775 /var/www/hueswipe/upload_log.csv /var/www/hueswipe/upload_errors.log /var/www/hueswipe/unique_ips.log /var/www/hueswipe/total_uploads.log
+
+sudo chmod  u+w /var/www/hueswipe/upload_log.csv /var/www/hueswipe/upload_errors.log /var/www/hueswipe/unique_ips.log /var/www/hueswipe/total_uploads.log
 
 echo "Permissions set correctly!"

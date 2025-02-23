@@ -30,7 +30,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const chaosPhrases = [
         "What the hell is a HEIC file?",
         "What the hell is a .webp file?",
-        "Color science is fake and made up.",
         "Legally distinct from an art crime.",
         "How do you pronounce 'gif'? Wrong. It's 'gif'.",
         "Fake it 'till you make it. Or just always fake it."
