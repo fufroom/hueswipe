@@ -12,65 +12,34 @@ else
     SERVER_PATH="/var/www/your_project/"
 fi
 
-LOCAL_PATH="$(dirname "$0")/"
+REPO_ROOT="$(dirname "$0")"
+OUTPUT_DIR="$REPO_ROOT/src"
 
-# Files and directories to sync
-INCLUDE_LIST=(
-    "index.html"
-    "upload.php"
-    "process.php"
-    "stats.php"
-    "styles.css"
-    "script.js"
-    "images/"
-    "images/**"
-    "js/"
-    "js/**"
-    "assets/"
-    "assets/**"
-    "fix_permissions.sh"  # Include the fix_permissions script
-)
+if [ ! -d "$OUTPUT_DIR" ]; then
+    echo "❌ ERROR: 'src/' directory not found. Run build.sh first!"
+    exit 1
+fi
 
-# Build rsync include parameters
-INCLUDE_ARGS=()
-for ITEM in "${INCLUDE_LIST[@]}"; do
-    INCLUDE_ARGS+=("--include=${ITEM}")
-done
+echo "🚀 Uploading files from output/ to $SERVER_USER@$SERVER_HOST:$SERVER_PATH..."
 
-# Run rsync, exclude the .env, README.md, .sh files, and the uploads folder contents
+# Sync files to the server
 rsync -avz --progress \
-    "${INCLUDE_ARGS[@]}" \
     --exclude=".env" \
     --exclude="README.md" \
-    --exclude="*.sh" \
-    --exclude="uploads/*" \
-    --exclude="*/" \
-    "$LOCAL_PATH" "${SERVER_USER}@${SERVER_HOST}:${SERVER_PATH}"
+    "$OUTPUT_DIR/" "${SERVER_USER}@${SERVER_HOST}:${SERVER_PATH}"
 
-# SSH into the server and run the fix_permissions.sh script
-ssh ${SERVER_USER}@${SERVER_HOST} << EOF
-  echo "Running fix_permissions.sh..."
+echo "✅ Upload complete! Remember to run fix_permissions.sh manually on the server if needed."
 
-  # Change to the directory where the files are uploaded
-  cd ${SERVER_PATH}
+# Test file upload using `curl`
+UPLOAD_URL="http://${SERVER_HOST}/upload.php"
+TEST_FILE="$OUTPUT_DIR/testfile.png"
 
-  # Make sure fix_permissions.sh has execute permissions
-  sudo chmod +x fix_permissions.sh
+if [ -f "$TEST_FILE" ]; then
+    echo "📤 Uploading test file..."
+    curl -X POST -F "file=@$TEST_FILE" "$UPLOAD_URL"
+    echo "✅ Test upload complete!"
+else
+    echo "⚠️  No test file found, skipping test upload."
+fi
 
-  # Run the fix_permissions.sh script
-  sudo ./fix_permissions.sh
-
-  echo "Permissions fixed on the server."
-EOF
-
-# Now proceed with file upload functionality, ensuring the file is uploaded and permissions are checked
-echo "✅ Starting file upload process..."
-
-# Files to upload
-UPLOAD_URL="http://${SERVER_HOST}/upload.php"  # Replace with correct upload URL
-
-# Use curl to upload a file for testing purposes (replace with real file for your use)
-# Adjust for the correct path and content type
-curl -X POST -F "file=@$LOCAL_PATH/testfile.png" "$UPLOAD_URL"
-
-echo "✅ Upload complete!"
+echo "✅ Upload process finished!"

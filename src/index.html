@@ -45,8 +45,12 @@
     gtag('config', 'G-XG2K0E78T8');
 </script>
 
-<body class="container text-center mt-4">
-
+<body>
+    
+    <div class="app-install">
+        <a href="#" onclick="installPWA()">📲 Add Hue Swipe to your home screen</a>
+    </div>
+    
     <header class="header-container">
         <div class="row">
             <!-- Left Side: Logo, Subtitle, Ko-fi -->
@@ -147,6 +151,25 @@
     </footer>
 
     <!-- Scripts -->
+    <script>
+        let deferredPrompt;
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.querySelector('.app-install').style.display = 'block';
+        });
+        
+        function installPWA() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then(() => {
+                    document.querySelector('.app-install').style.display = 'none';
+                });
+            }
+        }
+        </script>
+        
     <script src="js/script.js" defer type="module"></script>
     <script src="js/colorPicker.js" defer type="module"></script>
     <script src="js/colorBox.js" defer type="module"></script>

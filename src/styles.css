@@ -1,15 +1,23 @@
+
+/* Override Bootstrap defaults */
 html, body {
-    background: linear-gradient(135deg, #00FFFF, #FF66B2);
-    background-attachment: fixed;
-    background-size: cover;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    font-family: 'Open Sans', sans-serif;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
+    width: 100% !important;
+    height: 100% !important;
+    overflow-x: hidden !important;
+    background: green !important;
+  }
+  
+  /* Your custom body styles */
+  body {
+    background: linear-gradient(135deg, #00FFFF, #FF66B2) !important;
+    background-attachment: fixed !important;
+    background-size: cover !important;
+    color: white !important;
+    font-family: 'Open Sans', sans-serif !important;
+  }
+  
+  
+ 
 
 .btn-primary {
     background-color: #C2185B;
@@ -55,9 +63,9 @@ footer {
     font-size: 0.8rem;
     left: 0;
     padding: 10px;
-    position: fixed;
     text-align: center;
     width: 100%;
+    display: table-row;
 }
 
 footer a {
@@ -204,6 +212,54 @@ h1 {
     justify-content: flex-end;
 }
 
+.upload-container {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  .upload-container input {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+  
+  .upload-container button {
+    display: block;
+    width: 100%;
+    margin-top: 10px; /* Space between input and button on mobile */
+  }
+  
+  /* On desktop (wider screens), make them appear side-by-side */
+  @media (min-width: 577px) {
+    .upload-container {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+  
+    .upload-container input {
+      flex-grow: 1;
+    }
+  
+    .upload-container button {
+      width: auto;
+      flex-shrink: 0;
+      margin-top: 0; /* Remove extra spacing on desktop */
+    }
+  }
+
+  /* Limit max-width to 60% on Mobile */
+@media (max-width: 576px) {
+    .header-right {
+      max-width: 60%;
+    }
+  }
+  
+
 #fileInput {
     border-radius: 8px;
     font-size: 1.1rem;
@@ -258,7 +314,43 @@ h1 {
 }
 
 @media (max-width: 576px) {
+
+    #swipeButton {
+       border-radius: 10px !important;
+    }
     .color-results .color-box {
         width: 100%;
     }
 }
+
+
+.app-install {
+    display: none; /* Hidden by default */
+    text-align: center;
+    background-color: #007bff; /* Bootstrap primary blue */
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  
+  /* Show only on mobile */
+  @media (max-width: 576px) {
+    .app-install {
+      display: block;
+      width: 90%;
+      margin: 15px auto;
+    }
+  }
+  
+  /* Style the link */
+  .app-install a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .app-install a:hover {
+    text-decoration: underline;
+  }
+  
