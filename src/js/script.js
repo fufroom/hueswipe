@@ -13,23 +13,20 @@ document.addEventListener("DOMContentLoaded", async function () {
     const imagesSwiped = document.getElementById('images-swiped');
     const diskUsage = document.getElementById('disk-usage');
 
-    const UPLOAD_OFFSET = 56; // Hardcoded past uploads
-    const USERS_OFFSET = 11; // Hardcoded past uploads
+    const UPLOAD_OFFSET = 56;
+    const USERS_OFFSET = 11;
 
     const uploadURL = window.location.origin + "/upload.php";
     const processURL = window.location.origin + "/process.php";
 
-    // Function to fetch the stats
     async function fetchStats() {
         try {
             const response = await fetch('/stats.php');
             if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
 
             const statsData = await response.json();
-
             if (!statsData.success) throw new Error("Server returned failure");
 
-            // Fail gracefully if any value is missing
             if (swipers) {
                 swipers.textContent = (statsData.site_stats.unique_users ?? 0) + USERS_OFFSET;
             }
@@ -42,14 +39,12 @@ document.addEventListener("DOMContentLoaded", async function () {
         } catch (error) {
             console.error("[ERROR] Fetching site stats failed", error);
 
-            // Ensure UI placeholders are not stuck on "..."
             if (swipers) swipers.textContent = "0";
             if (imagesSwiped) imagesSwiped.textContent = UPLOAD_OFFSET;
             if (diskUsage) diskUsage.textContent = "0 MB";
         }
     }
 
-    // Initial stats fetch on page load
     fetchStats();
 
     function hexToRgb(hex) {
@@ -99,7 +94,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         colorResults.innerHTML = "";
         imageContainer.innerHTML = "";
         executionTimeDisplay.innerHTML = "";
-        clickToSampleAlert.classList.add("d-none"); // Hide the message initially
+        clickToSampleAlert.classList.add("d-none");
 
         const formData = new FormData();
         formData.append("file", fileInput.files[0]);
@@ -114,20 +109,26 @@ document.addEventListener("DOMContentLoaded", async function () {
             if (!result.success) throw new Error(`Upload error: ${result.error}`);
 
             console.log("[UPLOAD SUCCESS] File uploaded:", result.file);
-            imageContainer.innerHTML = `<img src="${result.file}" alt="Uploaded Image">`;
 
-            // Show the click-to-sample message
+            // ✅ FIX: Use web-accessible file path, ensuring no absolute server paths
+            const fileName = result.file.split('/').pop();  // Extract filename
+            const imageUrl = `/uploads/${fileName}`;  // Construct proper URL
+
+            imageContainer.innerHTML = `<img src="${imageUrl}" alt="Uploaded Image">`;
+
             clickToSampleAlert.classList.remove("d-none");
 
             console.log("[PROCESS] Sending file for color analysis...");
-            const colorResponse = await fetch(`${processURL}?image=${encodeURIComponent(result.file)}`);
+
+            // ✅ FIX: Send the correct relative file path
+            const colorResponse = await fetch(`${processURL}?image=${encodeURIComponent(fileName)}`);
 
             if (!colorResponse.ok) throw new Error(`Processing failed: ${colorResponse.status}`);
 
-            const colorText = await colorResponse.text();  // Get the raw response
-            console.log("[RAW RESPONSE]", colorText);  // Log it to inspect what it is
+            const colorText = await colorResponse.text();
+            console.log("[RAW RESPONSE]", colorText);
 
-            const colorData = JSON.parse(colorText);  // Attempt to parse it
+            const colorData = JSON.parse(colorText);
 
             if (!colorData.success) throw new Error(`Processing error: ${colorData.error}`);
 
@@ -150,7 +151,6 @@ document.addEventListener("DOMContentLoaded", async function () {
                 executionTimeDisplay.innerHTML = `Processing time: ${(colorData.execution_time_ms / 1000).toFixed(2)} seconds`;
             }
 
-            // After successful upload and processing, refresh stats
             fetchStats();
 
         } catch (error) {

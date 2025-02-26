@@ -7,15 +7,20 @@
     <title>Hue Swipe - Upload an image and steal its best colors. Don't worry, it's totally legal.</title>
 
     <!-- OpenGraph & Meta Tags for Sharing -->
-    <meta name="description" content="Swipe the unique colors from any image to make great color palettes! Just upload, extract, and get inspired.">
-    <meta property="og:title" content="Hue Swipe - Upload an image and steal its best colors. Don't worry, it's totally legal.">
-    <meta property="og:description" content="Upload an image and steal its best colors. Don't worry, it's totally legal.">
+    <meta name="description"
+        content="Swipe the unique colors from any image to make great color palettes! Just upload, extract, and get inspired.">
+    <meta property="og:title"
+        content="Hue Swipe - Upload an image and steal its best colors. Don't worry, it's totally legal.">
+    <meta property="og:description"
+        content="Upload an image and steal its best colors. Don't worry, it's totally legal.">
     <meta property="og:image" content="https://hueswipe.click/images/share-image.jpg">
     <meta property="og:url" content="https://hueswipe.click">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Hue Swipe - Upload an image and steal its best colors. Don't worry, it's totally legal.">
-    <meta name="twitter:description" content="Upload an image and steal its best colors. Don't worry, it's totally legal.">
+    <meta name="twitter:title"
+        content="Hue Swipe - Upload an image and steal its best colors. Don't worry, it's totally legal.">
+    <meta name="twitter:description"
+        content="Upload an image and steal its best colors. Don't worry, it's totally legal.">
     <meta name="twitter:image" content="https://hueswipe.click/images/share-image.jpg">
     <meta name="theme-color" content="#00FFFF">
 
@@ -23,7 +28,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
 
     <!-- Custom Styles -->
     <link rel="stylesheet" href="styles.css">
@@ -46,20 +52,18 @@
 </script>
 
 <body>
-    
-    <div class="app-install">
-        <a href="#" onclick="installPWA()">📲 Add Hue Swipe to your home screen</a>
-    </div>
-    
+
+
+
     <header class="header-container">
         <div class="row">
             <!-- Left Side: Logo, Subtitle, Ko-fi -->
             <div class="header-left col-sm-12 col-md-6">
                 <div class="header-title-container">
-                   <a href="/"> 
-                    <img src="images/logo.png" alt="Hue Swipe Logo" class="logo">
-                    <h1>Hue Swipe</h1>
-                     </a>
+                    <a href="/">
+                        <img src="images/logo.png" alt="Hue Swipe Logo" class="logo">
+                        <h1>Hue Swipe</h1>
+                    </a>
                 </div>
                 <p class="subtitle">Extract colors from any image and build a palette.</p>
 
@@ -108,29 +112,32 @@
         </div>
     </header>
 
-    <!-- Main Layout (Image + Colors) -->
-    <div class="row margin-below">
-        <div class="col-md-4">
-            <!-- Bootstrap Alert for Click-to-Sample Feature -->
-            <div id="clickToSampleAlert" class="alert alert-warning text-dark fw-bold mt-3 d-none" role="alert">
-                ⚠️ YO! YOU CAN CLICK THE IMAGE NOW. Seriously, click it. Sample any color you want. 
-                Don't let the algorithm tell you what's best. Be your own color thief. 🎨✨
+    <div class="container">
+
+        <!-- Main Layout (Image + Colors) -->
+        <div class="row margin-below">
+            <div class="col-md-4">
+                <!-- Bootstrap Alert for Click-to-Sample Feature -->
+                <div id="clickToSampleAlert" class="alert alert-warning text-dark fw-bold mt-3 d-none" role="alert">
+                    ⚠️ YO! YOU CAN CLICK THE IMAGE NOW. Seriously, click it. Sample any color you want.
+                    Don't let the algorithm tell you what's best. Be your own color thief. 🎨✨
+                </div>
+
+                <div id="imageContainer"></div>
             </div>
 
-            <div id="imageContainer"></div>
-        </div>
-        
-        <div class="col-md-8">
-            <strong id="executionTime"></strong>
-            <h3 id="colorFlavortext" class="flavor-text" style="display: none;"></h3>
-            <div id="colorResults" class="row"></div>
+            <div class="col-md-8">
+                <strong id="executionTime"></strong>
+                <h3 id="colorFlavortext" class="flavor-text" style="display: none;"></h3>
+                <div id="colorResults" class="row"></div>
+            </div>
         </div>
     </div>
 
     <!-- Footer -->
     <footer class="footer-container">
         <div class="footer-column">
-            <p>© 2025 <a href="https://fufroom.art" target="_blank">Fufroom</a></p>
+            <p>© 2025 <a href="https://fufroom.art" target="_blank">fufroom</a></p>
             <p><a href="https://github.com/fufroom/hueswipe" target="_blank">Open Source on GitHub</a></p>
             <p>Code is <strong>MIT licensed</strong>, but "HueSwipe" is <strong>copyright 2025 fufroom</strong></p>
         </div>
@@ -143,23 +150,64 @@
         <div class="footer-column">
             <p>HueSwipe logo uses icons from <a href="https://thenounproject.com/" target="_blank">Noun Project</a>:</p>
             <p>
-                <a href="https://thenounproject.com/browse/icons/term/paint/" target="_blank">Paint</a> by Paisley (CC BY 3.0)
+                <a href="https://thenounproject.com/browse/icons/term/paint/" target="_blank">Paint</a> by Paisley (CC
+                BY 3.0)
                 <br>
-                <a href="https://thenounproject.com/browse/icons/term/theft/" target="_blank">Theft</a> by Vectorstall (CC BY 3.0)
+                <a href="https://thenounproject.com/browse/icons/term/theft/" target="_blank">Theft</a> by Vectorstall
+                (CC BY 3.0)
             </p>
+            <p><a href="#" data-bs-toggle="modal" data-bs-target="#howItWorksModal">How does it work?</a></p>
         </div>
     </footer>
+
+    <!-- How It Works Modal -->
+    <div class="modal fade" id="howItWorksModal" tabindex="-1" aria-labelledby="howItWorksModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-light"> <!-- Dark background & light text -->
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title" id="howItWorksModalLabel">How It Works</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Hue Swipe analyzes an image and extracts its dominant colors. Here's what happens when you
+                        upload:</p>
+                    <ol>
+                        <li>🔹 <strong>Resizing</strong>: The image is resized to 512x512 pixels to ensure fast
+                            processing.</li>
+                        <li>🎯 <strong>Sampling</strong>: Instead of checking every pixel, we scan pixels at intervals
+                            to speed things up.</li>
+                        <li>🎨 <strong>Color Quantization</strong>: Colors that are very close are grouped together to
+                            avoid duplicates.</li>
+                        <li>📊 <strong>Sorting</strong>: The most frequent colors are counted and ranked.</li>
+                        <li>🌈 <strong>Results</strong>: The top 20 colors are displayed in HEX, RGB, and HSL formats.
+                        </li>
+                    </ol>
+                    <p>This process ensures fast, accurate color extraction without slowing down your browser!</p>
+                </div>
+                <div class="modal-footer border-secondary">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Bootstrap JS (Required for modal) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 
     <!-- Scripts -->
     <script>
         let deferredPrompt;
-        
+
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
             document.querySelector('.app-install').style.display = 'block';
         });
-        
+
         function installPWA() {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
@@ -168,8 +216,8 @@
                 });
             }
         }
-        </script>
-        
+    </script>
+
     <script src="js/script.js" defer type="module"></script>
     <script src="js/colorPicker.js" defer type="module"></script>
     <script src="js/colorBox.js" defer type="module"></script>
@@ -179,4 +227,5 @@
     <script src="js/taglines.js" defer></script>
 
 </body>
+
 </html>

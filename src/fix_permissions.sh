@@ -1,20 +1,39 @@
 #!/bin/bash
 
-echo "Fixing permissions and ownership..."
+echo "🔧 Fixing permissions and ownership..."
 
-# Ensure that the directories have write permissions
-sudo chown -R www-data:www-data /var/www/hueswipe/uploads
-sudo chmod -R 775 /var/www/hueswipe/uploads
+PROJECT_PATH="/var/www/hueswipe.click"
+LOG_FILES=("upload_log.csv" "upload_errors.log" "unique_ips.log" "total_uploads.log" "php_errors.log")
+UPLOADS_DIR="$PROJECT_PATH/uploads"
 
-# Ensure that the files inside uploads also have the right permissions
-sudo chmod -R u+w /var/www/hueswipe/uploads
+# Ensure fufroom owns the main project, but www-data has group access
+sudo chown -R fufroom:www-data "$PROJECT_PATH"
+sudo chmod -R 775 "$PROJECT_PATH"
 
-# Set proper permissions for the log files
+# Ensure logs and uploads are fully writable by www-data
+sudo chown -R www-data:www-data "$UPLOADS_DIR"
+sudo chmod -R 775 "$UPLOADS_DIR"
 
-sudo chown www-data:www-data /var/www/hueswipe/upload_log.csv /var/www/hueswipe/upload_errors.log /var/www/hueswipe/unique_ips.log /var/www/hueswipe/total_uploads.log
+# Ensure existing files inside uploads/ are owned by www-data
+sudo chown -R www-data:www-data "$UPLOADS_DIR"/*
+sudo chmod -R 664 "$UPLOADS_DIR"/*
 
-sudo chmod 775 /var/www/hueswipe/upload_log.csv /var/www/hueswipe/upload_errors.log /var/www/hueswipe/unique_ips.log /var/www/hueswipe/total_uploads.log
+# Set group sticky bit so future files inherit correct permissions
+sudo chmod g+s "$UPLOADS_DIR"
 
-sudo chmod  u+w /var/www/hueswipe/upload_log.csv /var/www/hueswipe/upload_errors.log /var/www/hueswipe/unique_ips.log /var/www/hueswipe/total_uploads.log
+# Ensure all log files exist, are owned by www-data, and have correct permissions
+for file in "${LOG_FILES[@]}"; do
+    LOG_PATH="$PROJECT_PATH/$file"
+    sudo touch "$LOG_PATH"
+    sudo chown www-data:www-data "$LOG_PATH"
+    sudo chmod 664 "$LOG_PATH"
+done
 
-echo "Permissions set correctly!"
+# Ensure userDetails.php is readable by www-data
+USER_DETAILS="$PROJECT_PATH/userDetails.php"
+if [ -f "$USER_DETAILS" ]; then
+    sudo chown fufroom:www-data "$USER_DETAILS"
+    sudo chmod 644 "$USER_DETAILS"
+fi
+
+echo "✅ Permissions set correctly!"
