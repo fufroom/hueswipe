@@ -285,6 +285,7 @@ h1 {
 #swipeButton {
     font-size: 1.1rem;
     padding: 12px 18px;
+    border-radius: 10px !important;
 }
 
 .subtitle {
@@ -315,9 +316,7 @@ h1 {
 
 @media (max-width: 576px) {
 
-    #swipeButton {
-       border-radius: 10px !important;
-    }
+  
     .color-results .color-box {
         width: 100%;
     }
